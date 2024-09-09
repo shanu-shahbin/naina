@@ -1,0 +1,164 @@
+{% load static %}
+{% load getstatus %}
+{% load return %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .order-details, .return-status, .address-details {
+            margin-bottom: 30px;
+        }
+        .order-details div, .return-status div, .address-details div {
+            margin-bottom: 10px;
+        }
+        .return-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .return-button:hover {
+            background-color: #c0392b;
+        }
+        .product-details-header {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .product-details {
+            display: flex;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .product-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 4px;
+        }
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .product-info {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .address-details strong {
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .product-details {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .product-image {
+                margin-bottom: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            .product-details {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Order Details</h2>
+    <!-- Order Details -->
+    <div class="order-details">
+        <div><strong>Order ID:</strong> {{ order.id }}</div>
+        <div><strong>Date:</strong> {{ order.created_at }}</div>
+        <div><strong>Status:</strong> {% getstatus order.order_status %}</div>
+        <div><strong>Total Price:</strong> AED {{ order.total_price }}</div>
+    </div>
+
+    <!-- Return Status -->
+    <div class="return-status">
+        {% if order.order_status == order.ORDER_DELIVERED and order.is_within_return_period and not order.is_refund_requested %}
+        <form action="{% url 'return_order' order.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="return-button">Request Return</button>
+        </form>
+        {% elif order.return_status %}
+        <div><strong>Return Status Details:</strong> {% get_return_status order.return_status %}</div>
+        {% endif %}
+    </div>
+
+    <!-- Shipping Address -->
+    <div class="address-details">
+        <div><strong>Shipping Address:</strong></div>
+        <div>{{ order.address.name }}<br>{{ order.address.street }}{{ order.address.city }}
+        {{ order.address.state }}, PostCode: {{ order.address.zip_code }}
+        {{ order.address.country }}<br>+971 {{ order.address.mobile_number }}<br>{{ order.address.address_type }}</div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-details-header"><strong>Products:</strong></div>
+    {% for item in order.added_items.all %}
+        <div class="product-details">
+            <a href="{% url 'product_detail' item.product.pk %}">
+            <img src="{{ item.product.image.url }}" alt="Product Image" class="product-image">
+            </a>
+            <div>
+                <div class="product-title">{{ item.product.title }}</div>
+                <div class="product-info">Size: {{ item.size }}</div>
+                <div class="product-info">Quantity: {{ item.quantity }}</div>
+                <div class="product-info">Price: AED {{ item.product_price }}</div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>

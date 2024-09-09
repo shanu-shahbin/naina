@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #fff;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    .sidebar {
+        background-color: #f9f9f9;
+        border-right: 1px solid #e6e6e6;
+        padding: 20px;
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar li {
+        padding: 10px 0;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        font-size: 14px;
+    }
+    .sidebar li:hover {
+        background-color: #ff3f6c;
+        color: #fff;
+    }
+    .sidebar li.active {
+        font-weight: bold;
+        color: #ff3f6c;
+    }
+    .content {
+        flex-grow: 1;
+        padding: 20px;
+    }
+    .content h2 {
+        margin-top: 0;
+        color: #ff3f6c;
+    }
+    .content h3 {
+        margin-bottom: 5px;
+        color: #333;
+    }
+    .content p {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+    .track-orders-button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        color: #fff;
+        background-color: #ff3f6c;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+    .track-orders-button:hover {
+        background-color: #e63950;
+    }
+
+    .styled-button {
+        background-color: gold;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .styled-button:hover {
+        background-color: #ffd700; /* Slightly lighter shade of gold */
+    }
+    
+    .button-link {
+        text-decoration: none;
+        color: black;
+    }
+    
+    .button-link:hover {
+        color: white; /* Changes text color on hover */
+    }
+    
+    @media (min-width: 768px) {
+        .container {
+            flex-direction: row;
+        }
+        .sidebar {
+            width: 300px;
+        }
+    }
+    @media (max-width: 767px) {
+        .sidebar {
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #e6e6e6;
+            padding: 10px;
+        }
+        .content {
+            padding: 15px;
+        }
+        .sidebar ul {
+            display: block;
+        }
+        .sidebar li {
+            padding: 8px 0;
+            text-align: left;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        .sidebar li:last-child {
+            border-bottom: none;
+        }
+    }
+    @media (max-width: 480px) {
+        .sidebar li {
+            font-size: 12px;
+        }
+        .content h2 {
+            font-size: 18px;
+        }
+        .content h3 {
+            font-size: 16px;
+        }
+        .content p {
+            font-size: 14px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li data-topic="terms-conditions">Terms and Conditions</li>
+                <li data-topic="shipping" class="active">Shipping, Order Tracking & Delivery</li>
+                <li data-topic="cancellations">Cancellations and Modifications</li>
+                <li data-topic="returns">Returns and Exchange</li>
+                <li data-topic="sign-up">Sign Up and Login</li>
+                <li data-topic="payments">Payments</li>
+               
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <!-- Default content -->
+            <a href="{% url 'orders' %}" class="track-orders-button">TRACK ORDERS</a>           
+             <h2>Shipping, Order Tracking & Delivery</h2>
+            <p>You can track your orders in Profile >> Orders in GoldenNaina.</p>
+            <h3>What is Golden Naina's Platform Fee?</h3>
+            <p>Golden Naina currently does not charge any platform fees for using its services. However, in the event that a platform fee is introduced in the future, we want to assure you that it will be fully refundable. Our commitment is to ensure that our users receive the best possible value and service, and any fee that might be introduced will be returned to you, maintaining transparency and trust in our platform. We appreciate your continued support and understanding.</p>
+            <h3>What is Golden Naina's Shipping Fee?</h3>
+            <p>a) Shipping fee is charged towards providing delivery and post-order services, including but not limited to, higher-than-average returns.</p>
+            <p>b) Shipping is a value-added service charge levied under one of the following circumstances:</p>
+            <ol>
+                <li>Orders below a certain value. The value can vary based on the category.</li>
+                <li>Orders below AED 200 for all categories are charged with a shipping fee.</li>
+                <li>The final shipping fee is calculated post-application of any 'coupon benefit' and offers.</li>
+                <li>The threshold values can change, please review the Shipping Fee at the time of checkout.</li>
+                <li>Shipping fee is not levied on Golden Naina Insiders, irrespective of the order value.</li>
+            </ol>
+            <h3>Refund of Shipping Fee</h3>
+            <p>Refunds of shipping fees are handled under Golden Naina’s Fair Usage Policy.</p>
+            <p>If you are an Insider and see a shipping fee, please contact our support for clarification.</p>
+        </div>
+    </div>
+    <script>
+        const topics = {
+            
+            "terms-conditions": `
+            <h2>Terms and Conditions</h2>
+            <p>Read our terms and conditions to know more about our policies.</p>
+            <div class="buttons">
+                <button class="styled-button">
+                    <a href="/termsUse/" class="button-link">User Agreement</a>
+                </button>
+            </div>
+        `,
+            "shipping": `
+                <a href="/orders/" class="track-orders-button">TRACK ORDERS</a>
+                <h2>Shipping, Order Tracking & Delivery</h2>
+                <p>You can track your orders in GoldenNaina/profile/orders.</p>
+                <h3>What is Golden Naina's Platform Fee?</h3>
+                <p>Refund of Platform Fee</p>
+                <h3>What is Golden Naina's Shipping Fee?</h3>
+                <p>a) Shipping fee is charged towards providing delivery and post-order services, including but not limited to, higher-than-average returns.</p>
+                <p>b) Shipping is a value-added service charge levied under one of the following circumstances:</p>
+                <ol>
+                    <li>Orders below a certain value. The value can vary based on the category.</li>
+                    <li>Orders below AED 150 for all categories are charged with a shipping fee.</li>
+                    <li>The final shipping fee is calculated post-application of any 'coupon benefit' and offers.</li>
+                    <li>The threshold values can change, please review the Shipping Fee at the time of checkout.</li>
+                    <li>Shipping fee is not levied on Golden Naina Insiders, irrespective of the order value.</li>
+                </ol>
+                <h3>Refund of Shipping Fee</h3>
+                <p>Refunds of shipping fees are handled under Golden Naina’s Fair Usage Policy.</p>
+            `,
+
+            "cancellations": `
+        <h2>Cancellations and Modifications</h2>
+        <p>Information about cancellations and modifications of orders.</p>
+        <div class="buttons">
+            <button class="styled-button">
+                <a href="/termsUse/" class="button-link">Learn More</a>
+            </button>
+        </div>
+        <h3>What is GoldenNaina's Cancellation Policy?</h3>
+        <p>You can now cancel an order when it is in packed/Deliverd status, as long as the cancel option is available on the Website. This includes items purchased on sale as well. Any amount paid will be credited into the same payment mode using which the payment was made.</p>
+        <h3>How do I cancel my Order?</h3>
+        <p>Tap on the “Orders” section under the main menu profile section of your Website and then select the item or order you want to cancel.</p>
+    `,
+    "returns": `
+    <h2>Returns and Exchange</h2>
+    <p>Details on how to return or exchange products.</p>
+    <p>We understand that sometimes a product may not meet your expectations, which is why we offer a return option to ensure your satisfaction. You can return your items within a specified period after delivery, provided they meet our return policy conditions. Whether the product doesn't fit, or you simply changed your mind, we're here to help with the return process.</p>
+    <p>However, please note that while returns are currently available, our exchange service is not yet operational. We are actively working on introducing an exchange option in the near future, allowing you to swap your purchase for a different size, color, or even a completely different item. Stay tuned for updates as we expand our services to provide even more flexibility and convenience for our valued customers.</p>
+`,
+            "sign-up": `
+            <h2>Sign Up and Login</h2>
+            <p>Information about signing up and logging in.</p>
+            <h3>How do I create an account on GoldenNaina?</h3>
+            <p>You can create your account on GoldenNaina by entering and verifying your Email. Click on "Create New Account" after that and fill up the form to create your GoldenNaina account.</p>
+            
+            <h3>How do I login on GoldenNaina? I used to login with email.</h3>
+            <p>For older users of GoldenNaina who used to log in with email, enter your email and OTP, then choose your method of login under 'Already have an account?'. Once you have entered the details, you will be logged in to your account. Next time, you can log in, and if you don't remember your password, use the 'Forgot Password' option or log in with OTP for easy access.</p>
+        
+        `,
+        "payments": `
+        <h2>Payments</h2>
+        <p>Details about payment methods and policies.</p>
+        <p>We offer multiple payment options for your convenience. You can choose to pay using Cash on Delivery (COD), which allows you to pay for your order at the time of delivery. This option is particularly useful if you prefer to make payments in cash or want to ensure you receive the product before paying.</p>
+        <p>In addition to COD, we also accept payments through PayPal, a secure and widely recognized online payment platform. PayPal allows you to pay using your PayPal balance, bank account, or credit/debit cards. This method is ideal for those who prefer the security and ease of online transactions.</p>
+    `
+        };
+
+        document.querySelectorAll('.sidebar li').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
+                item.classList.add('active');
+                const topic = item.getAttribute('data-topic');
+                document.getElementById('content').innerHTML = topics[topic];
+            });
+        });
+    </script>
+</body>
+</html>

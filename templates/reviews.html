@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Naina - Reviews</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-xxxxx" crossorigin="anonymous">
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400);
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        
+        }
+
+        body {
+            background: #fff;
+            color: #000;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .cont {
+            margin-top: 2rem; /* Add this to create a gap */
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        input.star {
+            display: none;
+        }
+
+        label.star {
+            font-size: 2.2rem;
+            color: #0f3460;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        input.star:checked~label.star:before {
+            content: '\f005';
+            color: #e94560;
+            transition: all 0.3s;
+        }
+
+        input.star-5:checked~label.star:before {
+            color: #ff6b6b;
+        }
+
+        input.star-1:checked~label.star:before {
+            color: #ff9a8b;
+        }
+
+        label.star:hover {
+            transform: scale(1.3);
+            color: #ff6b6b;
+        }
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
+        }
+
+        .rev-box {
+            margin-top: 1.5rem;
+        }
+
+        textarea.review {
+            width: 100%;
+            padding: 1rem; /* Increased padding for better text visibility */
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            resize: vertical;
+            background-color: #f8f8f8;
+            color: #333;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            min-height: 150px; /* Set a minimum height for better visibility */
+        }
+
+        textarea.review:focus {
+            border-color: #000;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background-color: #FF0080;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .review-section {
+            margin-top: 2.5rem;
+            margin-bottom: 2rem; /* Add this to create a gap */
+    
+        }
+
+        .review-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .review-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .review-rating {
+            font-size: 1.4rem;
+            color: #FF0080;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-text {
+            margin-top: 0.5rem;
+        }
+
+        .average-rating {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            color: #FF0080;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .cont {
+                padding: 2rem;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .stars {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .review-item {
+                padding: 1.2rem;
+            }
+
+            textarea.review {
+                font-size: 1rem;
+                padding: 0.8rem;
+                min-height: 120px;
+            }
+        }
+
+        @media screen and (min-width: 769px) and (max-width: 1024px) {
+            textarea.review {
+                padding: 1rem;
+                min-height: 180px;
+            }
+
+            body {
+                text-align: left;
+            }
+        }
+
+        @media screen and (min-width: 1025px) {
+            textarea.review {
+                padding: 1.2rem;
+                min-height: 200px;
+            }
+            body {
+                text-align: left;
+            }
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="average-rating">
+            Average Rating: {{ average_rating.rating|floatformat:1 }} out of 5
+        </div>
+
+        <div class="review-section">
+            <h2>Existing Reviews ( {{ reviews|length }} )</h2>
+            {% for r in reviews %}
+            <div class="review-item">
+                <p><strong>{{ r.user.username|title }}</strong></p>
+                <p class="review-rating">
+                    {% for i in ''|ljust:r.rating %}★{% endfor %}
+                </p>
+                <p class="review-text">{{ r.review }}</p>
+                <p><small>Date: {{ r.date|date:"d M, Y" }}</small></p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="cont">
+            <div class="stars">
+                <form id="reviewForm" method="POST" action="{% url 'ajax_add_review' product.id %}" class="row g-3">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        {{ review_form.rating }}
+                    </div>
+                    <div class="col-md-12">
+                        <textarea class="form-control review" name="review" placeholder="Write your review here..." rows="5"></textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha384-xxxxx" crossorigin="anonymous"></script>
+    <script>
+        $("#reviewForm").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                data: $(this).serialize(),
+                method: $(this).attr('method'),
+                url: $(this).attr('action'),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.boolean) {
+                        alert('Review submitted successfully');
+                        $(".stars").hide();
+                        location.reload(); // Reload the page to see the new review
+                    } else {
+                        alert('Failed to submit review: ' + JSON.stringify(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred: ' + xhr.responseText);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
