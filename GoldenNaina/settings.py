@@ -174,7 +174,7 @@ PAYPAL_TEST = True
 # AWS S3 configuration for media files
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'goldennainademo'
+AWS_STORAGE_BUCKET_NAME = 'goldennaina'
 AWS_S3_SIGNATURE_NAME = 's3v4'
 AWS_S3_REGION_NAME = 'us-west-2'
 AWS_S3_FILE_OVERWRITE = False
