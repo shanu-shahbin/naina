@@ -75,10 +75,10 @@ WSGI_APPLICATION = 'GoldenNaina.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'naina',
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': 'naina.cd6yi4yci4yn.us-west-2.rds.amazonaws.com',
+        'NAME': 'goldennaina',
+        'USER': 'goldennaina',
+        'PASSWORD': 'goldennaina',
+        'HOST': 'goldennaina.cd6yi4yci4yn.us-west-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
