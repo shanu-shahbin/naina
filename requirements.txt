@@ -15,3 +15,4 @@ django-storages
 django-paypal
 psycopg2-binary
 python-decouple
+whitenoise
