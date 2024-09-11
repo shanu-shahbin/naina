@@ -1,7 +1,6 @@
 django
-mysqlclient
 pillow
-djangorestframework
+djangorestframework==3.14.0
 django-filter
 django-jazzmin
 django-auto-logout
@@ -15,3 +14,4 @@ boto3
 django-storages
 django-paypal
 psycopg2-binary
+python-decouple
